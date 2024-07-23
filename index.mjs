@@ -1,6 +1,8 @@
 import { execSync } from 'child_process'
 import { sql, createPool } from "slonik"
 
+const DB_PORT = 6432
+
 let containerId = ''
 const timeoutError =  new Error(`Failed - connections were not released and got stuck in infinite queue`)
 
@@ -8,7 +10,7 @@ export const main = async () => {
   console.log(`Demo slonik issue where failed connections are not released`)
 
   console.log('start tmp db')
-  containerId = execSync(`docker run --detach --env POSTGRES_USER=user --env POSTGRES_PASSWORD=password --env POSTGRES_DB=database -p 5432:5432 postgres`).toString().trim()
+  containerId = execSync(`docker run --detach --env POSTGRES_USER=user --env POSTGRES_PASSWORD=password --env POSTGRES_DB=database -p ${DB_PORT}:5432 postgres`).toString().trim()
   console.log(`success - conatinerId=${containerId}`)
 
   console.log('wait for DB to be available')
@@ -16,7 +18,7 @@ export const main = async () => {
   execSync(`docker exec ${containerId} pg_isready --timeout=60`, { stdio: 'inherit' })
 
   console.log('create a pool - 1 maximumPoolSize, 1 connectionRetryLimit')
-  const pool = await createPool(`postgresql://user:password@127.0.0.1:5432/database`, {
+  const pool = await createPool(`postgresql://user:password@127.0.0.1:${DB_PORT}/database`, {
     connectionRetryLimit: 1,
     maximumPoolSize: 1,
     connectionTimeout: 1000,
