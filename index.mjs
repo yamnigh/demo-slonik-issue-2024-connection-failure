@@ -11,7 +11,7 @@ export const main = async () => {
 
   console.log('start tmp db')
   containerId = execSync(`docker run --detach --env POSTGRES_USER=user --env POSTGRES_PASSWORD=password --env POSTGRES_DB=database -p ${DB_PORT}:5432 postgres`).toString().trim()
-  console.log(`success - conatinerId=${containerId}`)
+  console.log(`success - containerId=${containerId}`)
 
   console.log('wait for DB to be available')
   await new Promise(resolve => setTimeout(resolve, 3000))
