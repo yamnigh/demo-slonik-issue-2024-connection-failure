@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "node index.mjs"
+    "test": "ROARR_LOG=true node index.mjs"
   },
   "keywords": [],
   "author": "",
