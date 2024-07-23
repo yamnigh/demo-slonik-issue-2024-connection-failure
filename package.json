@@ -1,0 +1,15 @@
+{
+  "name": "slonik-issue-2024-connection-failure",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "slonik": "45.6.0"
+  }
+}
